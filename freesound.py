@@ -35,7 +35,7 @@ def get_sounds(keyword):
         clip_url = '%s/%s.%s' % (settings.PUBLIC_DROPBOX_URL, s['id'], s['type'])
         #freesound_url = "%sdownload/%s__%s" % (s['url'], s['id'],  quote(s['original_filename']))
         freesound_url = s["serve"] + "?api_key=" + settings.APIKEY
-        r = requests.get(s['serve'], params=api_key, stream=True)
+        #r = requests.get(s['serve'], params=api_key, stream=True)
         # Uncomment for writing the file
         #if r.status_code == 200:
         #    file_name = "%s/%s.%s" % (settings.DROPBOX_FOLDER, s['id'], s['type'])
