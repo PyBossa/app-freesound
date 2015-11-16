@@ -4,7 +4,7 @@
 
 <div class="row">
     <!-- Success and Error Messages for the user --> 
-    <div class="span6 offset2" style="height:50px">
+    <div class="col-md-6 col-md-offset-2" style="height:50px">
         <div id="success" class="alert alert-success" style="display:none;">
             <a class="close">×</a>
             <strong>Well done!</strong> Your answer has been saved
@@ -37,23 +37,20 @@
     task.
 -->
 <div class="row skeleton"> <!-- Start Skeleton Row-->
-    <div class="span12"><!-- Start of Question and Submission DIV (column) -->
+    <div class="col-md-12"><!-- Start of Question and Submission DIV (column) -->
         <h1 id="question">Tag this sound clip</h1> <!-- The question will be loaded here -->
     </div>
 </div>
 <div class="row skeleton"> <!-- Start Skeleton Row-->
-    <div class="span12"><!-- Start of Question and Submission DIV (column) -->
+    <div class="col-md-12"><!-- Start of Question and Submission DIV (column) -->
         <div id="spectrals"><!-- Start of Photo DIV (column) -->
         </div><!-- End of Photo DIV (columnt) -->
     <div id="slider-audio" style="margin-top:5px; width:900px"></div>
     <div id="slider-range" style="margin-top:5px; width:900px"></div>
-    <div id="soundClips" class="btn-group"><!-- Start of Photo DIV (column) -->
-        <button class="btn btn-inverse" value='Yes' id="play"><i class="icon icon-white icon-play"></i> </button>
-            <!-- If the user clicks this button, the saved answer will be value="no"-->
-            <button class="btn btn-inverse" value='No' id="stop"><i class="icon icon-white icon-stop"></i> </button>
-
-
-    </div><!-- End of Photo DIV (columnt) -->
+    <div id="soundClips" class="btn-group">
+        <button class="btn btn-default" value='Yes' id="play"><i class="fa fa-play"></i> </button>
+        <button class="btn btn-default" value='No' id="stop"><i class="fa fa-stop"></i> </button>
+    </div>
     <span id="timer"></span>/<span id="totalTime"></span>
     <br/>
     <strong>Start Time: </strong><span id="startTime"></span>
@@ -69,10 +66,10 @@
         </form> 
 
         <!-- Feedback items for the user -->
-        <p>You are working now on task: <span id="task-id" class="label label-warning">#</span></p>
+        <p><span class="label label-warning">NOTE</span> Drag and drop the top sliders to select where the sound happens</p>
         <p>You have completed: <span id="done" class="label label-info"></span> tasks from
         <!-- Progress bar for the user -->
-        <span id="total" class="label label-inverse"></span></p>
+        <span id="total" class="label label-info"></span></p>
         <div class="progress progress-striped">
             <div id="progress" rel="tooltip" title="#" class="bar" style="width: 0%;"></div>
         </div>
@@ -170,6 +167,8 @@ pybossa.presentTask(function(task, deferred) {
         $("#spectrals").append(task.info.slider);
 
          var availableTags = [
+            "music",
+            "beep",
             "engine idling",
             "car horn",
             "car brakes",
@@ -226,17 +225,17 @@ pybossa.presentTask(function(task, deferred) {
 
         $("#slider-range-" + task.id).show();
 
-        task.mySound = new buzz.sound(task.info.freesound_url, {
+        task.mySound = new buzz.sound(task.info['preview-hq-mp3'], {
                 autoplay: true,
                 }
                 );
 
         $("#totalTime").text(buzz.toTimer( task.info.duration ));
-        $('#play').on('click', function(){
+        $('#play').off('click').on('click', function(){
             task.mySound.togglePlay();
 	    });
 
-        $('#stop').on('click', function(){
+        $('#stop').off('click').on('click', function(){
             task.mySound.stop();
 	    });
 
